@@ -11,7 +11,7 @@ packagesUrl='https://sourceware.org/pub/gcc/releases/?C=M;O=D' # the actual HTML
 packages="$(wget -qO- "$packagesUrl")"
 
 for version in "${versions[@]}"; do
-	fullVersion="$(grep -P '<a href="(gcc-)?\Q'"$version."'\E' <<<"$packages" | sed -r 's!.*<a href="(gcc-)?([^"/]+)/?".*!\2!' | sort -V | tail -1)"
+	fullVersion="$(grep -P '<a href="(gcc-)?\Q'"$version"'\E' <<<"$packages" | sed -r 's!.*<a href="(gcc-)?([^"/]+)/?".*!\2!' | sort -V | tail -1)"
 
 	compression=
 	for tryCompression in xz bz2 gz; do
