@@ -27,7 +27,7 @@ generated_warning() {
 	EOH
 }
 
-for version; do
+for version in "${@:2}"; do
 	export version
 
 	echo "processing $version ..."
@@ -35,5 +35,5 @@ for version; do
 	{
 		generated_warning
 		gawk -f "$jqt" Dockerfile.template
-	} > "$version/Dockerfile"
+	} > "$version-Dockerfile.tmp"
 done

@@ -1,1 +1,3 @@
 .jq-template.awk
+versions.json
+*-Dockerfile.tmp

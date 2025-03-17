@@ -1,4 +1,4 @@
-FROM buildpack-deps:{{ .debian.version }}
+FROM buildpack-deps:{{ .ubuntu.version }}
 
 RUN set -eux; \
 	apt-get update; \
@@ -37,9 +37,7 @@ ENV GCC_MIRRORS \
 # only attempt the origin FTP as a mirror of last resort
 		ftp://ftp.gnu.org/gnu/gcc
 
-# Last Modified: {{ .lastModified }}
 ENV GCC_VERSION {{ .version }}
-# Docker EOL: {{ .eol }}
 
 RUN set -ex; \
 	\
