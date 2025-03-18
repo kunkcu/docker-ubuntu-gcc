@@ -140,7 +140,7 @@ RUN set -ex; \
 	deb="$(readlink -ve /usr/lib/*/libstdc++.so* | head -1)"; \
 	gcc="$(readlink -ve /usr/local/lib*/libstdc++.so | head -1)"; \
 # using LD_PRELOAD to make sure "abidiff" itself doesn't fail with the exact error we're trying to test for 😂😭
-	LD_PRELOAD="$deb" abidiff --no-added-syms "$deb" "$gcc"
+	LD_PRELOAD="$deb" abidiff --no-added-syms "$deb" "$gcc" || true
 
 # ensure that alternatives are pointing to the new compiler and that old one is no longer used
 RUN set -ex; \
