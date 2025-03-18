@@ -8,13 +8,22 @@ on:
         required: true
         default: 'noble'
       version:
-        description: 'GCC Version'     
+        description: 'GCC Version'
         required: true
         default: '13.2.0'
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        include:
+          - runner: ubuntu-22.04
+            platform: linux/amd64
+            suffix: amd64
+          - runner: ubuntu-22.04-arm
+            platform: linux/arm64
+            suffix: arm64
     name: build-${{ github.event.inputs.version }}-${{ github.event.inputs.suite }}
     steps:
     - name: Checkout
@@ -35,6 +44,6 @@ jobs:
       with:
         context: .
         file: ./${{ github.event.inputs.version }}-Dockerfile.tmp
-        platforms: linux/amd64,linux/arm64/v8
+        platforms: ${{ matrix.platform }}
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/gcc:${{ github.event.inputs.version }}-${{ github.event.inputs.suite }}
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/gcc:${{ github.event.inputs.version }}-${{ github.event.inputs.suite }}-${{ matrix.suffix }}
