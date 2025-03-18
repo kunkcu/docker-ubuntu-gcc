@@ -15,6 +15,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    name: build-${{ github.event.inputs.version }}-${{ github.event.inputs.suite }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
