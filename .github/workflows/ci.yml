@@ -18,8 +18,6 @@ env:
 
 jobs:
   build:
-    env:
-      IMAGE_TAG_WSUFFIX: ${{ env.IMAGE_TAG }}-${{ matrix.suffix }}
     runs-on: ${{ matrix.runner }}
     strategy:
       matrix:
@@ -30,7 +28,7 @@ jobs:
           - runner: ubuntu-24.04-arm
             platform: linux/arm64/v8
             suffix: arm64v8
-    name: build-${{ env.IMAGE_TAG_WSUFFIX }}
+    name: build-${{ env.IMAGE_TAG }}-${{ matrix.suffix }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -52,7 +50,7 @@ jobs:
         file: ./${{ github.event.inputs.version }}-Dockerfile.tmp
         platforms: ${{ matrix.platform }}
         push: true
-        tags: ${{ env.REGISTRY_IMAGE }}:${{ env.IMAGE_TAG_WSUFFIX }}
+        tags: ${{ env.REGISTRY_IMAGE }}:${{ env.IMAGE_TAG }}-${{ matrix.suffix }}
 
   merge:
     runs-on: ubuntu-24.04
