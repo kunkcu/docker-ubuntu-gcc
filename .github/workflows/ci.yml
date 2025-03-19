@@ -53,6 +53,7 @@ jobs:
         tags: ${{ env.REGISTRY_IMAGE }}:${{ env.IMAGE_TAG }}-${{ matrix.suffix }}
 
   merge:
+    needs: build
     runs-on: ubuntu-24.04
     name: create-manifest
     steps:
