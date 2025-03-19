@@ -28,7 +28,7 @@ jobs:
           - runner: ubuntu-24.04-arm
             platform: linux/arm64/v8
             suffix: arm64v8
-    name: build-${{ env.IMAGE_TAG }}-${{ matrix.suffix }}
+    name: build-${{ github.event.inputs.version }}-${{ github.event.inputs.suite }}-${{ matrix.suffix }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
